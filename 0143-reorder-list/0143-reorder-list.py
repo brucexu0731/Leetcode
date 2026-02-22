@@ -27,8 +27,6 @@ class Solution:
             curr = nxt 
 
         curr = prev 
-        print(curr.val)
-        print(curr.next)
         curr2 = head 
     
         while curr.next:
