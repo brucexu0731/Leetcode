@@ -58,6 +58,9 @@ class LRUCache:
         #If 
     
     def update(self, node):
+        if self.dummy.next == node:
+            return
+
         if self.tail == node:
             self.tail = node.prev
             node.prev.next = node.next
@@ -65,16 +68,13 @@ class LRUCache:
             node.prev.next = node.next
             node.next.prev = node.prev
         
-        if self.dummy.next == node:
-            return
-        else:
-            tmp = self.dummy.next 
-            tmp.prev = node
+        tmp = self.dummy.next 
+        tmp.prev = node
 
-            node.next = tmp
-            node.prev = self.dummy
+        node.next = tmp
+        node.prev = self.dummy
 
-            self.dummy.next = node
+        self.dummy.next = node
 
 
 
