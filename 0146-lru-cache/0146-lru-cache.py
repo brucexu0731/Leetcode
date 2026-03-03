@@ -17,20 +17,17 @@ class LRUCache:
     def get(self, key: int) -> int:
         if key in self.nodes:
             node = self.nodes[key]
-            if self.length > 1:
-                self.update(node)
+            self.update(node)
             return node.val[1]
         else:
             return -1
         
     def put(self, key: int, value: int) -> None:
-        print(self.dummy.next)
         #If key already exist, update value 
         if key in self.nodes:
             node = self.nodes[key]
             node.val[1] = value
-            if self.length > 1:
-                self.update(node)
+            self.update(node)
         else:
             node = ListNode([key, value])
             self.nodes[key] = node
@@ -61,21 +58,23 @@ class LRUCache:
         #If 
     
     def update(self, node):
-        print("node", node.val)
         if self.tail == node:
             self.tail = node.prev
             node.prev.next = node.next
         else: 
             node.prev.next = node.next
             node.next.prev = node.prev
+        
+        if self.dummy.next == node:
+            return
+        else:
+            tmp = self.dummy.next 
+            tmp.prev = node
 
-        tmp = self.dummy.next 
-        tmp.prev = node
+            node.next = tmp
+            node.prev = self.dummy
 
-        node.next = tmp
-        node.prev = self.dummy
-
-        self.dummy.next = node
+            self.dummy.next = node
 
 
 
