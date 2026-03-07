@@ -13,7 +13,6 @@ class Solution:
                 return [float('-inf'), float('inf')]
             max_left, min_left = dfs(node.left)
             max_right, min_right = dfs(node.right)
-            print("node", node.val, "max_left", max_left, "min_right", min_right)
             if node.val <= max_left or node.val >= min_right:
                 isValid = False
             return [max(node.val, max_right), min(min_left, node.val)]
