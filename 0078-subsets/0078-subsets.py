@@ -8,9 +8,8 @@ class Solution:
                 res.append(path[:])
                 return 
             
-            path.append(nums[i])
             dfs(path[:], i + 1)
-            path.pop()
+            path.append(nums[i])
             dfs(path[:], i + 1)
         
         dfs([], 0)
