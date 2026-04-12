@@ -18,7 +18,6 @@ class Solution:
             if n < 0:
                 stack2.append(n)
             while stack1 and stack2:
-                print(stack1, stack2)
                 if stack1[-1] > - 1 * stack2[-1]:
                     stack2.pop()
                 elif stack1[-1] < -1 * stack2[-1]:
