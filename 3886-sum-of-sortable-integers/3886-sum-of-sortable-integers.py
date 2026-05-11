@@ -29,27 +29,31 @@ class Solution:
                 if k == 1:
                     max_curr = nums[i]
                     min_curr = nums[i]
+                    
                 for x in range(i + 1, j):
+                    # encounters a drop
                     if nums[x] < nums[x - 1]:
+                        # not sortable if the drop is not the bottom
                         if nums[x] > min_curr:
                             sortable = False
                             break
+                        # not sortabel if post-drop elements are larger than pre-drop
+                        if nums[j - 1] > nums[i]:
+                            sortable = False
+                            break
                         count += 1
-                    if nums[x] > max_curr and count > 0:
-                        sortable = False
-                        break
-
+                    
+                    #not sortable if multiple drops
                     if count > 1:
                         sortable = False
                         break 
                     max_curr = max(max_curr, nums[x])
                     min_curr = min(min_curr, nums[x])
+
                 if min_curr < max_prev:
                     sortable = False
                     break
-                if nums[j - 1] > nums[i] and count > 0:
-                    sortable = False
-                    break
+
                 max_prev = max_curr
                 i = j
                 j = i + k
