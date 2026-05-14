@@ -2,7 +2,7 @@ class Codec:
     def encode(self, strs: List[str]) -> str:
         """Encodes a list of strings to a single string.
         """
-        print("我".join(strs))
+        #print("我".join(strs))
         return "我".join(strs)
         
 
