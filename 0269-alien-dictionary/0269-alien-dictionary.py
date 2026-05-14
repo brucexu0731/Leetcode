@@ -13,7 +13,6 @@ class Solution:
             return "".join(set(words[0]))
         adj = defaultdict(list)
         all_chars = set()
-        is_valid = True 
         
         for i in range(len(words) - 1):
             for j in range(i + 1, len(words)):
@@ -27,7 +26,7 @@ class Solution:
                     a += 1
                     b += 1
                     if a < len(w1) and b >= len(w2):
-                        is_valid = False
+                        return ""
                         break
                 
                 if a < len(w1) and b < len(w2):
@@ -40,8 +39,6 @@ class Solution:
                     #print(w2[i])
                     all_chars.add(w2[k])
         
-        if not is_valid:
-            return ""
         res = []
         visit = set()
         def dfs(n, path):
