@@ -4,14 +4,18 @@ class Solution:
         def dfs(i):
             if i in memo:
                 return memo[i]
+
             longest = 0
             for j in range(i + 1, len(nums)):
-                curr = dfs(j)
                 if nums[j] > nums[i]:
+                    curr = dfs(j)
                     longest = max(curr, longest)
             memo[i] = 1 + longest
             return 1 + longest 
         
-        dfs(0)
+        res = 0
+        for i in range(len(nums)):
+            curr = dfs(i)
+            res = max(curr, res)
             
-        return max(memo.values())
+        return res
