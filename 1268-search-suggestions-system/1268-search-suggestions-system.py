@@ -36,7 +36,7 @@ class Solution:
                     r -= 1
                     continue 
                 break
-            print(l, r)
+            #print(l, r)
             res.append(products[l : min(r + 1, l + 3)])
         
         return res
