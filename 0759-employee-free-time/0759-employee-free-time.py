@@ -16,7 +16,7 @@ class Solution:
                 intervals.append([i.start, i.end])
         
         intervals.sort()
-        print(intervals)
+        #print(intervals)
         
         res = []
         s = intervals[0][1]
