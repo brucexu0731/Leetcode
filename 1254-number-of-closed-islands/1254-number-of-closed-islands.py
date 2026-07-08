@@ -13,11 +13,13 @@ class Solution:
                 return visit[(r, c)]
             
             visit[(r, c)] = True
-            for nr, nc in [(r - 1, c), (r + 1, c), (r, c - 1), (r, c + 1)]:
-                if not dfs(nr, nc):
-                    visit[(r, c)] = False
-                    return False
-            return True 
+            up = dfs(r - 1, c)
+            down = dfs(r + 1, c)
+            left = dfs(r, c - 1)
+            right = dfs(r, c + 1)
+            
+            visit[(r, c)] = up and down and left and right
+            return visit[(r, c)]
         
         res = 0
 
