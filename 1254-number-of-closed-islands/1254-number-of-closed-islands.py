@@ -25,7 +25,7 @@ class Solution:
 
         for i in range(row):
             for j in range(col):
-                if grid[i][j] == 0 and (i, j) not in visit:
+                if (i, j) not in visit and grid[i][j] == 0:
                     if dfs(i, j):
                         res += 1
 
