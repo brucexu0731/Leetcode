@@ -19,10 +19,11 @@ class Solution:
             down = dfs(r + 1, c)
             left = dfs(r, c - 1)
             right = dfs(r, c + 1)
+            res = up and down and left and right
 
-            visit[(r, c)] = up and down and left and right
+            visit[(r, c)] = res
             count += 1
-            return visit[(r, c)]
+            return res
         
         for i in range(row):
             for j in range(col):
