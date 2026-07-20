@@ -1,22 +1,25 @@
-import heapq
+
 from collections import defaultdict
 class FreqStack:
 
     def __init__(self):
         #a frequency map 
-        self.heap = []
-        self.counter = 0
         self.freq = defaultdict(int)
+        self.max_freq = 0
+        self.freq_groups = defaultdict(list)
 
     def push(self, val: int) -> None:
         self.freq[val] += 1
-        heapq.heappush(self.heap, (-self.freq[val], -self.counter, val))
-        self.counter += 1
+        freq = self.freq[val]
+        if freq > self.max_freq:
+            self.max_freq = freq
+        self.freq_groups[freq].append(val)
 
     def pop(self) -> int:
-        curr = heapq.heappop(self.heap)
-        val = curr[2]
+        val = self.freq_groups[self.max_freq].pop()
         self.freq[val] -= 1
+        if not self.freq_groups[self.max_freq]:
+            self.max_freq -= 1
         return val 
 
 
