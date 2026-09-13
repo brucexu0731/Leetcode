@@ -1,33 +1,35 @@
-from collections import defaultdict
+from collections import deque, defaultdict 
 
 class Solution:
     def canFinish(self, numCourses: int, prerequisites: List[List[int]]) -> bool:
         
         adj = defaultdict(list)
+        indegrees = defaultdict(int)
 
         for course, prereq in prerequisites:
-            adj[course].append(prereq)
+            adj[prereq].append(course)
+            indegrees[course] += 1
         
-        visit = set()
+        queue = deque()
+        res = []
 
-        def dfs(n, path):
-            if n in path:
-                return False 
-            if n in visit:
-                return True
-            
-            path.add(n)
-            visit.add(n)
-
-            for nxt in adj[n]:
-                if not dfs(nxt, path):
-                    return False 
-            
-            path.remove(n)
-            return True
-        
         for n in range(numCourses):
-            if not dfs(n, set()):
-                return False
+            if indegrees[n] == 0:
+                queue.append(n)
         
-        return True
+        while queue:
+            for i in range(len(queue)):
+                curr = queue.popleft()
+                res.append(curr)
+
+                for nxt in adj[curr]:
+                    indegrees[nxt] -= 1
+                    if indegrees[nxt] == 0:
+                        queue.append(nxt)
+        
+        if len(res) != numCourses:
+            return False
+        else:
+            return True
+
+
