@@ -1,33 +1,33 @@
 from collections import defaultdict
-        
+
 class Solution:
     def canFinish(self, numCourses: int, prerequisites: List[List[int]]) -> bool:
+        
         adj = defaultdict(list)
-        for course, pre in prerequisites:
-            adj[pre].append(course)
+
+        for course, prereq in prerequisites:
+            adj[course].append(prereq)
         
         visit = set()
 
-        def dfs(n):
+        def dfs(n, path):
             if n in path:
-                return False
+                return False 
             if n in visit:
-                return True 
-
-            res = True
-            visit.add(n)
+                return True
+            
             path.add(n)
-            for course in adj[n]:
-                res &= dfs(course) 
-            path.remove(n)
-            return res 
-        
-        for i in range(numCourses):
-            if i not in visit:
-                path = set()
-                if dfs(i) == False:
-                    return False
+            visit.add(n)
 
+            for nxt in adj[n]:
+                if not dfs(nxt, path):
+                    return False 
+            
+            path.remove(n)
+            return True
+        
+        for n in range(numCourses):
+            if not dfs(n, set()):
+                return False
         
         return True
-        
