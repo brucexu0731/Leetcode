@@ -13,41 +13,61 @@ class Solution(object):
             return [s.replace("(", "")]
         elif "(" not in s:
             return [s.replace(")", "")]
+        
+        left_remove = 0
+        right_remove = 0
+
+        for c in s:
+            if c == "(":
+                left_remove += 1
+            elif c == ")":
+                if left_remove > 0:
+                    left_remove -= 1
+                else:
+                    right_remove += 1
 
 
         self.max_length = -1
         self.res = set()
 
-        self.dfs(s, 0, [], 0, 0)
+        self.dfs(s, 0, [], 0, left_remove, right_remove)
         return list(self.res)
 
-    def dfs(self, s, index, curr_res, opens, closes):
-        if index == len(s):
-            if opens == closes:
-                if len(curr_res) > self.max_length:
-                    self.max_length = len(curr_res)
-                    self.res = set()
-                    self.res.add("".join(curr_res))
-                elif len(curr_res) == self.max_length:
-                    self.res.add("".join(curr_res))  
+    def dfs(self, s, i, curr, balance, left_remove, right_remove):
+        if i == len(s):
+            if balance == 0 and left_remove == 0 and right_remove == 0:
+                self.res.add("".join(curr))
             return
-        
-        if s[index] == "(":
-            curr_res.append("(")
-            self.dfs(s, index + 1, curr_res, opens + 1, closes)
-            curr_res.pop()
-            self.dfs(s, index + 1, curr_res, opens, closes)
-        elif s[index] == ")":
-            self.dfs(s, index + 1, curr_res, opens, closes)
-            if opens > closes:
-                curr_res.append(")")
-                self.dfs(s, index + 1, curr_res, opens, closes + 1)
-                curr_res.pop()
+
+        c = s[i]
+
+        if c == "(":
+            # remove it
+            if left_remove > 0:
+                self.dfs(s, i + 1, curr, balance,
+                        left_remove - 1, right_remove)
+
+            # keep it
+            curr.append(c)
+            self.dfs(s, i + 1, curr, balance + 1,
+                    left_remove, right_remove)
+            curr.pop()
+
+        elif c == ")":
+            # remove it
+            if right_remove > 0:
+                self.dfs(s, i + 1, curr, balance,
+                        left_remove, right_remove - 1)
+
+            # keep it
+            if balance > 0:
+                curr.append(c)
+                self.dfs(s, i + 1, curr, balance - 1,
+                        left_remove, right_remove)
+                curr.pop()
+
         else:
-            curr_res.append(s[index])
-            self.dfs(s, index + 1, curr_res, opens, closes)
-            curr_res.pop()
-
-
-
-
+            curr.append(c)
+            self.dfs(s, i + 1, curr, balance,
+                    left_remove, right_remove)
+            curr.pop()
