@@ -11,6 +11,8 @@ class Solution(object):
 
         if ")" not in s:
             return [s.replace("(", "")]
+        elif "(" not in s:
+            return [s.replace(")", "")]
 
 
         self.max_length = -1
