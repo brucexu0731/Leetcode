@@ -16,7 +16,7 @@ class Solution(object):
         # so for a lower boundary binary search, we would go left < right and left/right = mid because mid can be the answer, while exact value searches we do left <= right and left/right = mid +- 1 because we are looking for exact values
 
         diff = [abs(nums1[i] - nums2[i]) for i in range(len(nums1))]
-        print(diff)
+        #print(diff)
         operations = k1 + k2
         l, r = 0, max(diff)
 
@@ -42,7 +42,7 @@ class Solution(object):
         operations -= moves
         res = 0 
 
-        print(level, operations)
+        #print(level, operations)
 
         for n in diff:
             if n >= level:
@@ -51,7 +51,7 @@ class Solution(object):
                     operations -= 1
                     n -= 1
             res += max(n, 0) ** 2
-            print(res)
+            # print(res)
 
         return res
 
