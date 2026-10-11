@@ -5,11 +5,12 @@ class Solution(object):
         :rtype: int
         """
         res = 0
+        n = len(nums)
 
-        for i in range(len(nums)):
-            n = nums[i]
-            if len(nums)% (i + 1) == 0:
-                res += n**2 
+        for i in range(n):
+            val = nums[i]
+            if n % (i + 1) == 0:
+                res += val ** 2 
         
         return res
 
